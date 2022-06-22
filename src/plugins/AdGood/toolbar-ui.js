@@ -120,7 +120,7 @@ export default class Adds {
         `
         dataListDiv.style.cssText = `
           position: absolute;
-          right: 20px;
+          right: 18px;
           width: 272px;
           height: 100px;
           border: 1px solid #eee;

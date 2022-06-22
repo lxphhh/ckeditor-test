@@ -103,7 +103,7 @@ export default class AddsPlat {
     border-radius: 4px;color:#828282;outline: none;`
       dataListDiv.style.cssText = `
         position: absolute;
-        right: 20px;
+        right: 18px;
         width: 272px;
         height: 100px;
         border: 1px solid #eee;
@@ -118,7 +118,7 @@ export default class AddsPlat {
       const buttonGroupContent = document.createElement('div')
       buttonGroupContent.style.cssText = `
         position: absolute;
-        top: 210px;
+        top: 215px;
         z-index:111;
         display:flex;
         flex-direction: column;
@@ -150,6 +150,7 @@ export default class AddsPlat {
        `
         const btnName = document.createElement('span')
         const label = document.createElement('span')
+        label.id = `label_${key}`
         label.style.cssText = `
           flex:1;
           color:rgb(130, 130, 130,0.7);
