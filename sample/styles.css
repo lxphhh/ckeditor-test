@@ -43,6 +43,7 @@ main .ck-editor[role='application'] .ck.ck-content,
   /* To enable toolbar wrapping. */
   width: 100%;
   overflow-x: hidden;
+  height: 500px;
 }
 
 /* Because of sidebar `position: relative`, Edge is overriding the outline of a focused editor. */

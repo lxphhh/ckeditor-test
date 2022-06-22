@@ -4,6 +4,36 @@ import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview'
 import AddsPlat from './toolbar-ui'
 
 export default class adPlatform extends Plugin {
+  constructor(editor) {
+    super(editor)
+    this.labelArray = [
+      {
+        key: 1,
+        labelName: '简介/特色',
+        desc: '暂无信息'
+      },
+      {
+        key: 2,
+        labelName: '免邮政策',
+        desc: '暂无信息'
+      },
+      {
+        key: 3,
+        labelName: '关于税费',
+        desc: '暂无信息'
+      },
+      {
+        key: 4,
+        labelName: '退货政策',
+        desc: '暂无信息'
+      },
+      {
+        key: 5,
+        labelName: '退货流程及其他',
+        desc: '暂无信息'
+      }
+    ]
+  }
   // 初始化
   init() {
     const editor = this.editor

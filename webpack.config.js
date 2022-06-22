@@ -58,9 +58,15 @@ module.exports = {
       banner: bundler.getLicenseBanner(),
       raw: true
     }),
+    // new HtmlWebpackPlugin({
+    //   title: 'Sxample',
+    //   template: 'sample/index.html',
+    //   inject: 'head'
+    // })
     new HtmlWebpackPlugin({
       title: 'Sxample',
-      template: 'sample/index.html'
+      template: 'sample/index.html',
+      inject: 'head'
     })
   ],
 
@@ -100,7 +106,9 @@ module.exports = {
       }
     ]
   },
-
+  devServer: {
+    hot: true
+  },
   resolve: {
     alias: {
       '@plugins': path.resolve('/plugins')

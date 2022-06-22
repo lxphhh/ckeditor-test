@@ -5,12 +5,44 @@ export default class AddsPlat {
   constructor() {
     this.activeId = 0
     this.nodeArr = []
+    this.labelArray = [
+      {
+        key: 1,
+        labelName: '简介/特色',
+        width: '78px',
+        desc: '暂无信息'
+      },
+      {
+        key: 2,
+        labelName: '免邮政策',
+        width: '70px',
+        desc: '暂无信息'
+      },
+      {
+        key: 3,
+        labelName: '关于税费',
+        width: '70px',
+        desc: '暂无信息'
+      },
+      {
+        key: 4,
+        labelName: '退货政策',
+        width: '70px',
+        desc: '暂无信息'
+      },
+      {
+        key: 5,
+        labelName: '退货流程及其他',
+        width: '115px',
+        desc: '暂无信息'
+      }
+    ]
   }
   showAddGood() {
     let box = document.createElement('div')
     box.className = 'add_plat'
     box.style.cssText =
-      'position:absolute;display:block;width:390px;height:310px;box-sizing: border-box;border-radius: 4px;border: 1px solid #d9d9d9;background-color:#fff;right:50px;top:35px;z-index:999;'
+      'position:absolute;display:block;width:390px;height: 460px;box-sizing: border-box;border-radius: 4px;border: 1px solid #d9d9d9;background-color:#fff;right:50px;top:35px;z-index:999;'
     for (let i = 1; i < 4; i++) {
       let d = document.createElement('div')
       d.className = 'd' + i
@@ -47,7 +79,7 @@ export default class AddsPlat {
   createContent(node) {
     let arr = [
       // { label: "店铺名称", placeholder: "请输入店铺名称" },
-      { label: '商家名称', placeholder: '请选择商家,支持下拉搜索' }
+      { label: '商家名称', placeholder: '请选择商家名称,支持下拉搜索' }
     ]
 
     for (let i = 0; i < 1; i++) {
@@ -95,7 +127,8 @@ export default class AddsPlat {
         box-sizing: border-box;
       `
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < this.labelArray.length; i++) {
+        const { width, key, labelName, desc } = this.labelArray[i]
         const singleButtonContent = document.createElement('div')
         singleButtonContent.style.cssText = `
           display:flex;
@@ -108,7 +141,7 @@ export default class AddsPlat {
         btn.style.cssText = `
           display:flex;
           align-items: center;
-          width: 70px;
+          width: ${width};
           height: 70%;
           border-radius: 4px;
           cursor:pointer;
@@ -119,15 +152,17 @@ export default class AddsPlat {
         const label = document.createElement('span')
         label.style.cssText = `
           flex:1;
-          color:#e0e0e0;
+          color:rgb(130, 130, 130,0.7);
           margin-left: 15px;
           overflow:hidden;
           text-overflow:ellipsis;
           white-space:nowrap;
+          font-size: 14px;
         `
-        label.innerHTML = '商家信息商家信息商家信息商家信息'
+        label.innerHTML = `${desc}`
+        btn.id = `btn_${key}`
         btnName.style.cssText = `margin-left: 4px;`
-        btnName.innerText = '商家信息'
+        btnName.innerText = `${labelName}`
 
         btn.appendChild(btnName)
         singleButtonContent.appendChild(btn)
@@ -144,32 +179,17 @@ export default class AddsPlat {
       this.nodeArr.push(inputDiv)
       node.appendChild(inputDiv)
     }
-    node.style.cssText = 'height:190px;border-bottom: 1px solid #eee;'
+    node.style.cssText = 'height: 355px;border-bottom: 1px solid #eee;'
     // node.style.cssText = 'height:90px;border-bottom: 1px solid #eee;'
   }
   createButton(node) {
     let div1 = document.createElement('div')
     let span1 = document.createElement('span')
     let span2 = document.createElement('span')
-    span1.style.cssText = CONFIRM_BUTTON
-    span1.innerText = '确定'
-    span2.style.cssText = COMMON_BUTTON
-    span2.innerText = '取消'
-    node.style.cssText = `display: flex;justify-content: flex-end;padding-top:15px;`
-    node.appendChild(span1)
-    node.appendChild(span2)
-  }
 
-  // 创建按钮组合
-  createSingleButton(node) {
-    // div > span *4
-    let span1 = document.createElement('span')
-    let span2 = document.createElement('span')
-    span1.style.cssText = COMMON_BUTTON
-    span1.innerText = '取消'
     span2.style.cssText = COMMON_BUTTON
     span2.innerText = '取消'
-    node.style.cssText = `display: flex;justify-content: flex-end;padding-top:15px;`
+    node.style.cssText = `display: flex;justify-content: flex-end;padding-top:8px;`
     node.appendChild(span1)
     node.appendChild(span2)
   }

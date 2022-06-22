@@ -1,6 +1,6 @@
 deploy_versions/
 .temp/
 .rn_temp/
-.build/
+build/
 node_modules/
 .DS_Store
