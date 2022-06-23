@@ -10,7 +10,7 @@ import service from '../../request'
 export default class adPlatform extends Plugin {
   constructor(editor) {
     super(editor)
-    ;(this.labelArray = [
+    this.labelArray = [
       {
         key: 'btn_1',
         labelName: '简介/特色',
@@ -36,8 +36,8 @@ export default class adPlatform extends Plugin {
         labelName: '退货流程及其他',
         desc: '暂无信息5'
       }
-    ]),
-      (this.data = [])
+    ]
+    this.data = []
   }
   // 初始化
   init() {
@@ -105,15 +105,16 @@ export default class adPlatform extends Plugin {
   async getListData(target) {
     try {
       this.data.length = []
+      this.initLabel()
       const res = await service.get(
-        `https://fentu.maibuymai.com/admin/material?page=1&page_size=20&material_enabled=&material_content=&tab_id=11&article_title=${target}`
+        `https://fentu.maibuymai.com/admin/platform/caption?page=1&page_size=20&platform_title=${target}`
       )
       if (res) {
         const resData = res.data.d.map((ele, index) => {
           return {
-            id: ele.material_id,
+            id: ele.bind_platform_id,
             // 加上优惠id 方便之后的截取信息
-            text: `${ele.article_title},优惠ID:${ele.material_id}`,
+            text: `${ele.platform_title},商家ID:${ele.bind_platform_id}`,
             alldata: ele
           }
         })
@@ -132,8 +133,7 @@ export default class adPlatform extends Plugin {
     var e = event.target || event.srcElement
     var str = e.value
     const data = await this.getListData(str)
-    this.data.push(data)
-    console.log(this.data, '是1')
+    this.data = data
     dataList.innerHTML = '' //清空div下的所有P元素
     const dataArray = this.filterList(data, str)
     // console.log(dataArray, "是是");
@@ -200,26 +200,52 @@ export default class adPlatform extends Plugin {
     }
   }
   handleAddInfomation(item) {
-    console.log(item, 'item------')
-    // this.addInfomation(item.desc)
+    this.addInfomation(item.labelName)
   }
   /**
    *
    * @param {*} id 添加商品的id名字输入
    */
   addGoods(value) {
-    // console.log(id, 'id')
     let index = value.indexOf(':')
     let result = value.substr(index + 1, value.length)
-    //TODO: 开个接口
+    console.log(result, 'result')
+    if (this.data && this.data.length > 0) {
+      const newData = this.data.find(item => {
+        return item.id === +result
+      })
+      if (newData && newData.alldata) {
+        this.setLabel(newData.alldata)
+      }
+    }
   }
 
   addInfomation(desc) {
+    if (desc === '暂无信息') return
     const editor = this.editor
     editor.model.change(writer => {
       const paragraph = writer.createElement('paragraph', {})
       writer.appendText(`${desc}`, paragraph)
       editor.model.insertContent(paragraph, editor.model.document.selection)
     })
+  }
+
+  setLabel(newData) {
+    try {
+      $('#label_1').text(`${newData.caption_text}`) // 简介
+      $('#label_2').text(`${newData.caption_express}`) // 免邮
+      $('#label_3').text(`${newData.caption_tax}`) // 税费
+      $('#label_4').text(`${newData.caption_refund}`) // 退货
+      $('#label_5').text(`${newData.caption_refund_flow}`) // 其他
+    } catch (error) {}
+  }
+
+  initLabel() {
+    const NO_DATA = '暂无数据'
+    $('#label_1').text(`${NO_DATA}`) // 简介
+    $('#label_2').text(`${NO_DATA}`) // 免邮
+    $('#label_3').text(`${NO_DATA}`) // 税费
+    $('#label_4').text(`${NO_DATA}`) // 退货
+    $('#label_5').text(`${NO_DATA}`) // 其他
   }
 }
