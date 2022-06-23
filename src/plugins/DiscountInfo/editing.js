@@ -13,28 +13,23 @@ export default class adPlatform extends Plugin {
     this.labelArray = [
       {
         key: 'btn_1',
-        labelName: '简介/特色',
-        desc: '暂无信息2'
+        labelName: '暂无数据'
       },
       {
         key: 'btn_2',
-        labelName: '免邮政策',
-        desc: '暂无信息1'
+        labelName: '暂无数据'
       },
       {
         key: 'btn_3',
-        labelName: '关于税费',
-        desc: '暂无信息3'
+        labelName: '暂无数据'
       },
       {
         key: 'btn_4',
-        labelName: '退货政策',
-        desc: '暂无信息4'
+        labelName: '暂无数据'
       },
       {
         key: 'btn_5',
-        labelName: '退货流程及其他',
-        desc: '暂无信息5'
+        labelName: '暂无数据'
       }
     ]
     this.data = []
@@ -164,7 +159,7 @@ export default class adPlatform extends Plugin {
           padding: 10px 14px;
           cursor: pointer
           line-height: 2;`
-      var text = document.createTextNode('暂无数据请重新搜索你的商品名字')
+      var text = document.createTextNode('暂无数据请重新搜索你的商家名称')
       p.style.color = '#d7d7d7'
       p.onclick = function (event) {
         event.preventDefault()
@@ -200,6 +195,7 @@ export default class adPlatform extends Plugin {
     }
   }
   handleAddInfomation(item) {
+    console.log(item)
     this.addInfomation(item.labelName)
   }
   /**
@@ -216,12 +212,18 @@ export default class adPlatform extends Plugin {
       })
       if (newData && newData.alldata) {
         this.setLabel(newData.alldata)
+        console.log(this.labelArray, 'new')
+        this.labelArray[0].labelName = newData.alldata.caption_text || ''
+        this.labelArray[1].labelName = newData.alldata.caption_express || ''
+        this.labelArray[2].labelName = newData.alldata.caption_tax || ''
+        this.labelArray[3].labelName = newData.alldata.caption_refund || ''
+        this.labelArray[4].labelName = newData.alldata.caption_refund || ''
       }
     }
   }
 
   addInfomation(desc) {
-    if (desc === '暂无信息') return
+    if (desc === '暂无数据') return
     const editor = this.editor
     editor.model.change(writer => {
       const paragraph = writer.createElement('paragraph', {})
@@ -236,16 +238,17 @@ export default class adPlatform extends Plugin {
       $('#label_2').text(`${newData.caption_express}`) // 免邮
       $('#label_3').text(`${newData.caption_tax}`) // 税费
       $('#label_4').text(`${newData.caption_refund}`) // 退货
-      $('#label_5').text(`${newData.caption_refund_flow}`) // 其他
+      $('#label_5').text(`${newData.caption_refund}`) // 其他
     } catch (error) {}
   }
 
   initLabel() {
     const NO_DATA = '暂无数据'
-    $('#label_1').text(`${NO_DATA}`) // 简介
-    $('#label_2').text(`${NO_DATA}`) // 免邮
-    $('#label_3').text(`${NO_DATA}`) // 税费
-    $('#label_4').text(`${NO_DATA}`) // 退货
-    $('#label_5').text(`${NO_DATA}`) // 其他
+    for (let i = 1; i < 6; i++) {
+      $(`#label_${i}`).text(`${NO_DATA}`) // 简介
+    }
+    for (let i = 0; i < 5; i++) {
+      this.labelArray[i].labelName = '暂无数据'
+    }
   }
 }

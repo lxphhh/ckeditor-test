@@ -9,7 +9,7 @@ export default class AddsPlat {
       {
         key: 1,
         labelName: '简介/特色',
-        width: '78px',
+        width: '72px',
         desc: '暂无信息'
       },
       {
@@ -42,7 +42,7 @@ export default class AddsPlat {
     let box = document.createElement('div')
     box.className = 'add_plat'
     box.style.cssText =
-      'position:absolute;display:block;width:390px;height: 460px;box-sizing: border-box;border-radius: 4px;border: 1px solid #d9d9d9;background-color:#fff;right:50px;top:35px;z-index:999;'
+      'position:absolute;display:block;width:390px;height: 480px;box-sizing: border-box;border-radius: 4px;border: 1px solid #d9d9d9;background-color:#fff;right:50px;top:35px;z-index:999;'
     for (let i = 1; i < 4; i++) {
       let d = document.createElement('div')
       d.className = 'd' + i
@@ -105,7 +105,7 @@ export default class AddsPlat {
         position: absolute;
         right: 18px;
         width: 272px;
-        height: 100px;
+        height: 90px;
         border: 1px solid #eee;
         overflow-y: auto;
         overflow-x: auto;
@@ -180,7 +180,7 @@ export default class AddsPlat {
       this.nodeArr.push(inputDiv)
       node.appendChild(inputDiv)
     }
-    node.style.cssText = 'height: 355px;border-bottom: 1px solid #eee;'
+    node.style.cssText = 'height: 370px;border-bottom: 1px solid #eee;'
     // node.style.cssText = 'height:90px;border-bottom: 1px solid #eee;'
   }
   createButton(node) {
